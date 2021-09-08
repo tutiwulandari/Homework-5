@@ -73,7 +73,7 @@ function Home() {
             </Row>
 
             <div className="float-right">
-              <Button type="primary" style={{margin:"0px", paddingRight: "30px", 
+              <Button type="primary" style={{margin:"0px", paddingRight: "15px", 
               backgroundColor:"#F03D3E", fontWeight:"bold"}}>
                   Batalkan
               </Button>

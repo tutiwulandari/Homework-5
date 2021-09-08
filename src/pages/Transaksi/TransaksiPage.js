@@ -190,7 +190,7 @@ const TransaksiPage = () => {
                         <Button 
                         type="primary" 
                         className="searching-agent"
-                        style={{paddingRight:"35px",
+                        style={{paddingRight:"15px",
                                 marginTop:"50px"}}
                         >Cari Agen</Button>
                     </Row>
