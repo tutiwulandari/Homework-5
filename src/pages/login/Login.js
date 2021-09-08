@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select,Row,Col } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./login.css";
 import { useHistory } from "react-router-dom";
 import BRI from "../../assets/image/BRI2.png";
+import { useAuthorizedContext } from "../../AuthorizedContext";
 
 
 const { Option } = Select;
@@ -21,6 +22,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [data, setData] = useState({});
   const [selectedUserLevel, setSelectedUserLevel] = useState("customer");
+  const { setAuthorizedValue } = useAuthorizedContext();
+
+  const handleSignInButton = useCallback(() => {
+    setAuthorizedValue(true, selectedUserLevel);
+    history.push("/Home");
+  }, [setAuthorizedValue, history, selectedUserLevel]);
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
@@ -108,6 +115,13 @@ const Login = () => {
               value={password}
               onChange={handleChange}
             />
+          </Form.Item>
+          <Form.Item as={Row} className="mb-3 button-login">
+            <Col sm="9">
+              <Button type="submit" style={styleButtton} size="md" onClick={handleSignInButton}>
+                Sign In
+              </Button>
+            </Col>
           </Form.Item>
         </Form>
       </div>
