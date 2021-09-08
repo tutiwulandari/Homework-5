@@ -1,22 +1,14 @@
 import React, { useState, useCallback } from "react";
-import { Form, Input, Button, Select,Row,Col } from "antd";
+import { Form, Input, Button, Select, Col } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./login.css";
 import { useHistory } from "react-router-dom";
 import BRI from "../../assets/image/BRI2.png";
 import { useAuthorizedContext } from "../../AuthorizedContext";
 
-
 const { Option } = Select;
 
-const styleButtton = {
-  backgroundColor: "#292961",
-  borderRadius: "10px",
-  marginTop: "10px",
-};
-
 const Login = () => {
-
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,44 +16,53 @@ const Login = () => {
   const [selectedUserLevel, setSelectedUserLevel] = useState("customer");
   const { setAuthorizedValue } = useAuthorizedContext();
 
-  const handleSignInButton = useCallback(() => {
-    setAuthorizedValue(true, selectedUserLevel);
-    history.push("/Home");
-  }, [setAuthorizedValue, history, selectedUserLevel]);
-
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
 
   const handleSubmit = useCallback(() => {
-    // setAuthorizedValue(true, selectedUserLevel);
-    history.push("/home");
-  }, [history]);
+    setAuthorizedValue(true, selectedUserLevel);
+    history.push("/Home");
+  }, [setAuthorizedValue, history, selectedUserLevel]);
 
-  const handleSelectedUserLevel = useCallback( (value) => {
+  const handleSelectedUserLevel = useCallback((value) => {
     setSelectedUserLevel(`${value}`);
   }, []);
-  
 
-  const handleChange = useCallback((e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    switch (name) {
-      case "username":
-        setUsername(value);
-        setData({ ...data, [name]: value });
-        break;
-      case "password":
-        setPassword(value);
-        setData({ ...data, [name]: value });
-        break;
-      default:
-    }
-  }, [username, password, data]);
+  const UserType = [
+    {
+      key: "1",
+      value: "customer",
+      label: "Customer",
+    },
+    {
+      key: "2",
+      value: "agent",
+      label: "Agent",
+    },
+  ];
+
+  const handleChange = useCallback(
+    (e) => {
+      const name = e.target.name;
+      const value = e.target.value;
+      switch (name) {
+        case "username":
+          setUsername(value);
+          setData({ ...data, [name]: value });
+          break;
+        case "password":
+          setPassword(value);
+          setData({ ...data, [name]: value });
+          break;
+        default:
+      }
+    },
+    [data]
+  );
 
   console.log("Ini data", data);
   console.log("INI ROLE", selectedUserLevel);
-
 
   return (
     <div className="outer-login">
@@ -70,13 +71,15 @@ const Login = () => {
           <img src={BRI} alt="logo" />
         </div>
         <Form
+          labelCol={{ span: 6 }}
+          labelAlign="left"
           name="normal_login"
           className="login-form"
           initialValues={{
             remember: true,
           }}
           onFinish={onFinish}
-          style={{marginTop:"-30px"}}
+          style={{ marginTop: "-30px" }}
         >
           <Form.Item
             name="username"
@@ -88,16 +91,11 @@ const Login = () => {
               },
             ]}
           >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
-              name="username"
-              value={username}
-              onChange={handleChange}
-              
-            />
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" name="username" value={username} onChange={handleChange} />
           </Form.Item>
           <Form.Item
+            labelCol={{ span: 6 }}
+            labelAlign="left"
             name="password"
             label="Password"
             rules={[
@@ -107,19 +105,39 @@ const Login = () => {
               },
             ]}
           >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            />
+            <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" name="password" value={password} onChange={handleChange} />
           </Form.Item>
-          <Form.Item as={Row} className="mb-3 button-login">
-            <Col sm="9">
-              <Button type="submit" style={styleButtton} size="md" onClick={handleSignInButton}>
-                Sign In
+          <Form.Item
+            labelCol={{ span: 6 }}
+            name="login_as"
+            label="Login As"
+            rules={[
+              {
+                required: true,
+                message: "Please choose user type!",
+              },
+            ]}
+          >
+            <Select defaultValue={selectedUserLevel} name="login_as" onChange={handleSelectedUserLevel}>
+              {UserType.map((option) => (
+                <Option key={option.key} value={option.value} label={option.label}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item>
+            <Col
+              span={12}
+              offset={2}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button className="btn-login" onClick={handleSubmit}>
+                Login
               </Button>
             </Col>
           </Form.Item>
