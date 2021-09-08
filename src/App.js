@@ -1,24 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import TransaksiPage from './pages/Transaksi/TransaksiPage';
+import Login from "./pages/login/Login";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Logout from "./pages/Status/Logout";
+import AuthorizedRoute from "./AuthorizedRoute";
+import RestrictedWrapper from "./RestrictedWrapper";
+import { AuthorizedContextProvider } from "./AuthorizedContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthorizedContextProvider>
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <RestrictedWrapper>
+              <Login />
+            </RestrictedWrapper>
+          </Route>
+          <AuthorizedRoute path="/Transaksi" exact component={TransaksiPage}></AuthorizedRoute>
+          <Route path="/Signout" exact component={Logout} />
+          <AuthorizedRoute path="/Home" exact component={Home}></AuthorizedRoute>
+        </Switch>
+      </Router>
+    </AuthorizedContextProvider>
   );
 }
 
