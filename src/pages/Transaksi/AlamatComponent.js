@@ -1,12 +1,5 @@
 import React from "react";
-// import { Col, Row, Form } from "react-bootstrap";
-import {
-  Row,
-  Col,
-  Form,
-  Input,
-  Select
-} from "antd";
+import { Row, Col, Form, Input, Select } from "antd";
 
 const { Option } = Select;
 
@@ -16,7 +9,13 @@ const DataAlamat = [
     kabupaten: [
       {
         name: "Kota Bandung",
-        kecamatan: ["Coblong", "Lengkong Gudang", "Buahbatu", "Ujung Berung", "Antapani"],
+        kecamatan: [
+          "Coblong",
+          "Lengkong Gudang",
+          "Buahbatu",
+          "Ujung Berung",
+          "Antapani",
+        ],
       },
       {
         name: "Bogor",
@@ -33,7 +32,14 @@ const DataAlamat = [
     kabupaten: [
       {
         name: "Grobogan",
-        kecamatan: ["Brati", "Gabus", "Geyer", "Karangrayu", "Kradenan", "Purwodadi"],
+        kecamatan: [
+          "Brati",
+          "Gabus",
+          "Geyer",
+          "Karangrayu",
+          "Kradenan",
+          "Purwodadi",
+        ],
       },
       {
         name: "Kudus",
@@ -41,11 +47,24 @@ const DataAlamat = [
       },
       {
         name: "Pekalongan",
-        kecamatan: ["Bojong", "Buaran", "Karangayar", "Kedungwungi", "Lebakbarang"],
+        kecamatan: [
+          "Bojong",
+          "Buaran",
+          "Karangayar",
+          "Kedungwungi",
+          "Lebakbarang",
+        ],
       },
       {
         name: "Semarang",
-        kecamatan: ["Ambarawa", "Bancak", "Bawen", "Banyubiru", "Bringin", "Getasan"],
+        kecamatan: [
+          "Ambarawa",
+          "Bancak",
+          "Bawen",
+          "Banyubiru",
+          "Bringin",
+          "Getasan",
+        ],
       },
     ],
   },
@@ -64,7 +83,14 @@ const DataAlamat = [
       { name: "Kota Kediri", kecamatan: ["Kediri", "Mojoroto", "Pesantren"] },
       {
         name: "Banyuwangi",
-        kecamatan: ["Pesanggaran", "Purwoharjo", "Muncar", "Genteng", "Glenmore", "Rogojampi"],
+        kecamatan: [
+          "Pesanggaran",
+          "Purwoharjo",
+          "Muncar",
+          "Genteng",
+          "Glenmore",
+          "Rogojampi",
+        ],
       },
     ],
   },
@@ -77,7 +103,12 @@ const DataAlamat = [
       },
       {
         name: "Kota Denpasar",
-        kecamatan: ["Denpasar Barat", "Denpasar Selatan", "Denpasar Timur", "Denpasar Utara"],
+        kecamatan: [
+          "Denpasar Barat",
+          "Denpasar Selatan",
+          "Denpasar Timur",
+          "Denpasar Utara",
+        ],
       },
       {
         name: "Gianyar",
@@ -89,7 +120,13 @@ const DataAlamat = [
       },
       {
         name: "Tabanan",
-        kecamatan: ["Baturiti", "Kerambitan", "Selemadeng Barat", "Selemadeng Timur", "Tabanan"],
+        kecamatan: [
+          "Baturiti",
+          "Kerambitan",
+          "Selemadeng Barat",
+          "Selemadeng Timur",
+          "Tabanan",
+        ],
       },
     ],
   },
@@ -102,7 +139,12 @@ const DataAlamat = [
       },
       {
         name: "Kota Tual",
-        kecamatan: ["Pulau Dullah Utara", "Pulau Dullah Selatan", "Tayando Tam", "Pulau-Pulau Kur"],
+        kecamatan: [
+          "Pulau Dullah Utara",
+          "Pulau Dullah Selatan",
+          "Tayando Tam",
+          "Pulau-Pulau Kur",
+        ],
       },
       {
         name: "Buru",
@@ -134,78 +176,77 @@ const AlamatComponent = () => {
   };
 
   const dataKabupaten = React.useMemo(() => {
-    return DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)?.kabupaten || [];
+    return (
+      DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)
+        ?.kabupaten || []
+    );
   }, [selectedProvinsi]);
 
   const dataKecamatan = React.useMemo(() => {
-    return dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)?.kecamatan || [];
+    return (
+      dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)
+        ?.kecamatan || []
+    );
   }, [selectedKabupaten, dataKabupaten]);
 
-    return (
-    
-
-                <Form
-                    name="basic"
-                    layout="horizontal"
-                >
-                    <Form.Item
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 24 }}
-                    labelAlign="left"
-                    label="Alamat Saat Ini"
-                    name="address"
-                    rules={[
-                        {
-                        required: true
-                        }
-                    ]}
-                    >
-                    <Row justify="space-between" style={{ marginBottom: "10px" }}>
-                        <Col span={7}>
-                        <Select
-                            placeholder="Pilih Provinsi"
-                            onChange={handleSelectedProvinsi}
-                        >
-                            {DataAlamat.map((provinsi, index) => (
-                            <Option key={index.toString()} value={provinsi.name}>
-                                {provinsi.name}
-                            </Option>
-                            ))}
-                        </Select>
-                        </Col>
-                        <Col span={7}>
-                        <Select
-                            placeholder="Pilih Kabupaten"
-                            onChange={handleSelectedKabupaten}
-                        >
-                            {dataKabupaten.map((kabupaten, index) => (
-                            <Option key={index.toString()} value={kabupaten.name}>
-                                {kabupaten.name}
-                            </Option>
-                            ))}
-                        </Select>
-                        </Col>
-                        <Col span={7}>
-                        <Select
-                            placeholder="Pilih Kecamatan"
-                            onChange={handleSelectedKecamatan}
-                        >
-                            {dataKecamatan.map((kecamatan, index) => (
-                            <Option key={index.toString()} value={kecamatan}>
-                                {kecamatan}
-                            </Option>
-                            ))}
-                        </Select>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Input.TextArea />
-                    </Row>
-                    </Form.Item>
-                </Form>
-    
-    );
-
-}
+  return (
+    <Form name="basic" layout="horizontal">
+      <Form.Item
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 24 }}
+        labelAlign="left"
+        label="Alamat Saat Ini"
+        name="address"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Row justify="space-between" style={{ marginBottom: "10px" }}>
+          <Col span={7}>
+            <Select
+              placeholder="Pilih Provinsi"
+              onChange={handleSelectedProvinsi}
+            >
+              {DataAlamat.map((provinsi, index) => (
+                <Option key={index.toString()} value={provinsi.name}>
+                  {provinsi.name}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+          <Col span={7}>
+            <Select
+              placeholder="Pilih Kabupaten"
+              onChange={handleSelectedKabupaten}
+            >
+              {dataKabupaten.map((kabupaten, index) => (
+                <Option key={index.toString()} value={kabupaten.name}>
+                  {kabupaten.name}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+          <Col span={7}>
+            <Select
+              placeholder="Pilih Kecamatan"
+              onChange={handleSelectedKecamatan}
+            >
+              {dataKecamatan.map((kecamatan, index) => (
+                <Option key={index.toString()} value={kecamatan}>
+                  {kecamatan}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+        </Row>
+        <Row>
+          <Input.TextArea />
+        </Row>
+      </Form.Item>
+    </Form>
+  );
+};
 
 export default AlamatComponent;
