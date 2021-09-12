@@ -1,16 +1,8 @@
-import {
-  Row,
-  Col,
-  Form,
-  Button,
-  Select,
-  InputNumber
-} from "antd";
+import { Row, Col, Form, Button, Select, InputNumber } from "antd";
 import AlamatComponent from "./AlamatComponent";
 import NavbarComponent from "../../assets/components/navbar/NavbarComponent";
-import './TransaksiPage.css';
+import "./TransaksiPage.css";
 const { Option } = Select;
-
 
 const JenisTransaksi = [
   {
@@ -124,9 +116,36 @@ const JenisTransaksi = [
 ];
 
 const TransaksiPage = () => {
-  function onChange(value) {
-    console.log('changed', value);
-  }
+  const currencyParser = (val) => {
+    try {
+      // for when the input gets clears
+      if (typeof val === "string" && !val.length) {
+        val = "0.0";
+      }
+
+      // detecting and parsing between comma and dot
+      var group = new Intl.NumberFormat("id-ID").format(1111).replace(/1/g, "");
+      var reversedVal = val.replace(new RegExp("\\" + group, "g"), "");
+      //  => 1232.21 €
+
+      // removing everything except the digits and dot
+      reversedVal = reversedVal.replace(/[^0-9.]/g, "");
+      //  => 1232.21
+
+      // appending digits properly
+      const digitsAfterDecimalCount = (reversedVal.split(".")[1] || []).length;
+      const needsDigitsAppended = digitsAfterDecimalCount > 2;
+
+      if (needsDigitsAppended) {
+        reversedVal = reversedVal * Math.pow(10, digitsAfterDecimalCount - 2);
+      }
+
+      return Number.isNaN(reversedVal) ? 0 : reversedVal;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <NavbarComponent />
@@ -134,9 +153,8 @@ const TransaksiPage = () => {
         <div style={{ width: "50%" }}>
           <Row style={{ width: "100%" }}>
             <Col span={24} style={{ paddingTop: "100px" }}>
-
               <Form style={{ width: "100%" }}>
-                <Form.Item as={Row} className="mb-3 center"
+                <Form.Item
                   labelCol={{ span: 6 }}
                   wrapperCol={{ span: 24 }}
                   labelAlign="left"
@@ -144,11 +162,11 @@ const TransaksiPage = () => {
                   name="Jenis Transaksi"
                   rules={[
                     {
-                      required: true
-                    }
+                      required: true,
+                    },
                   ]}
                 >
-                  <Col >
+                  <Col>
                     <Select
                       placeholder="Pilih Jenis Transaksi"
                       onChange={(value) => {
@@ -163,7 +181,7 @@ const TransaksiPage = () => {
                     </Select>
                   </Col>
                 </Form.Item>
-                <Form.Item as={Row} className="mb-3 center"
+                <Form.Item
                   labelCol={{ span: 6 }}
                   wrapperCol={{ span: 24 }}
                   labelAlign="left"
@@ -171,14 +189,12 @@ const TransaksiPage = () => {
                   name="Nominal Transaksi"
                   rules={[
                     {
-                      required: true
-                    }
+                      required: true,
+                    },
                   ]}
-
                 >
-
-                  <Col md={24} >
-                    <InputNumber style={{ width: "100%" }}/>
+                  <Col>
+                    <InputNumber style={{ width: "100%" }} formatter={(value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(value)} parser={currencyParser} />
                   </Col>
                 </Form.Item>
 
@@ -186,21 +202,21 @@ const TransaksiPage = () => {
               </Form>
             </Col>
           </Row>
-          <Row md={6}>
+          <Row justify="center">
             <Button
               type="primary"
               className="searching-agent"
               style={{
                 paddingRight: "15px",
-                marginTop: "50px"
+                marginTop: "50px",
               }}
-            >Cari Agen</Button>
+            >
+              Cari Agen
+            </Button>
           </Row>
-
         </div>
       </div>
     </div>
-
   );
 };
 
