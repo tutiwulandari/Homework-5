@@ -81,6 +81,7 @@ const CardTransactionComponent = (props) => {
               paddingRight: "15px",
               backgroundColor: "#F03D3E",
               fontWeight: "bold",
+              borderRadius: "10px"
             }}
             onClick={handleCancelTransaction}
           >
