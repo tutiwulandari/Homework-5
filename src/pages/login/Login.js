@@ -175,6 +175,10 @@ const Login = () => {
               >
                 Login
               </Button>
+
+              <Button className="btn-register" onClick={handleSuccessLogin}>
+                Register
+              </Button>
             </Col>
           </Form.Item>
         </Form>
