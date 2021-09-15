@@ -1,0 +1,15 @@
+{
+  "transactions": [
+    {
+      "created_date": "Wed Sep 15 2021 23:17:53 GMT+0900 (Eastern Indonesia Time)",
+      "jenis_transaksi": "setoran-uang",
+      "provinsi_customer": "Jawa Tengah",
+      "kabupaten_customer": "Kudus",
+      "kecamatan_customer": "Kudus",
+      "alamat_lengkap": "fffgghhh",
+      "nominal_transaksi": 11111,
+      "status": "Menunggu Konfirmasi Agen",
+      "id": 1
+    }
+  ]
+}
