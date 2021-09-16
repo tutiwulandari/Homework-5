@@ -6,9 +6,9 @@ import useCreateTransaction from "../../Mutations/useCreateTransaction";
 import NavbarComponent from "../../assets/components/navbar/NavbarComponent";
 import { useHistory } from "react-router-dom";
 import "./TransaksiPage.css";
-
+ 
 const { Option } = Select;
-
+ 
 const TransaksiPage = () => {
   const [selectedProvinsi, setSelectedProvinsi] = React.useState(null);
   const [selectedKabupaten, setSelectedKabupaten] = React.useState(null);
@@ -22,56 +22,56 @@ const TransaksiPage = () => {
     kecamatan_customer: " ",
     alamat_lengkap: " ",
     nominal_transaksi: "",
-    status: "Menunggu Konfirmasi Agen",
+    status: "0",
   });
-
+ 
   const { mutate } = useCreateTransaction(formState, (result) => {
     console.log("success mutation >> ", result);
     history.replace("/home");
   });
-
+ 
   const currencyParser = (val) => {
     try {
       // for when the input gets clears
       if (typeof val === "string" && !val.length) {
         val = "0.0";
       }
-
+ 
       // detecting and parsing between comma and dot
       var group = new Intl.NumberFormat("id-ID").format(1111).replace(/1/g, "");
       var reversedVal = val.replace(new RegExp("\\" + group, "g"), "");
-      //  => 1232.21 
-
+      //  => 1232.21
+ 
       // removing everything except the digits and dot
       reversedVal = reversedVal.replace(/[^0-9.]/g, "");
       //  => 1232.21
-
+ 
       // appending digits properly
       const digitsAfterDecimalCount = (reversedVal.split(".")[1] || []).length;
       const needsDigitsAppended = digitsAfterDecimalCount > 2;
-
+ 
       if (needsDigitsAppended) {
         reversedVal = reversedVal * Math.pow(10, digitsAfterDecimalCount - 2);
       }
-
+ 
       return Number.isNaN(reversedVal) ? 0 : reversedVal;
     } catch (error) {
       console.error(error);
     }
   };
-
+ 
   const handleSelectedProvinsi = (value) => {
     setSelectedProvinsi(value);
   };
-
+ 
   const handleSelectedKabupaten = (value) => {
     setSelectedKabupaten(value);
   };
-
+ 
   const handleSelectedKecamatan = (value) => {
     setSelectedKecamatan(value);
   };
-
+ 
   const handleFormProvinsi = (value) => {
     setFormState({ ...formState, provinsi_customer: value });
   };
@@ -81,21 +81,15 @@ const TransaksiPage = () => {
   const handleFormKecamatan = (value) => {
     setFormState({ ...formState, kecamatan_customer: value });
   };
-
+ 
   const dataKabupaten = React.useMemo(() => {
-    return (
-      DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)
-        ?.kabupaten || []
-    );
+    return DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)?.kabupaten || [];
   }, [selectedProvinsi]);
-
+ 
   const dataKecamatan = React.useMemo(() => {
-    return (
-      dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)
-        ?.kecamatan || []
-    );
+    return dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)?.kecamatan || [];
   }, [selectedKabupaten, dataKabupaten]);
-
+ 
   return (
     <div>
       <NavbarComponent />
@@ -124,12 +118,8 @@ const TransaksiPage = () => {
                       }}
                     >
                       {JenisTransaksi.map((option) => (
-                        <Option
-                          key={option.key}
-                          value={option.value}
-                          disabled={option.isDisabled}
-                        >
-                          {option.value}
+                        <Option key={option.key} value={option.value} disabled={option.isDisabled}>
+                          {option.label}
                         </Option>
                       ))}
                     </Select>
@@ -168,7 +158,7 @@ const TransaksiPage = () => {
                     />
                   </Col>
                 </Form.Item>
-
+ 
                 <Form.Item
                   labelCol={{ span: 6 }}
                   wrapperCol={{ span: 24 }}
@@ -261,5 +251,5 @@ const TransaksiPage = () => {
     </div>
   );
 };
-
+ 
 export default TransaksiPage;

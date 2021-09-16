@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Row, Col, Form, Input, Button, Card, Typography, Spin, Space} from "antd";
+import { Row, Col, Form, Input, Button, Card, Typography, Spin, Space } from "antd";
 import "./Home.css";
 import NavbarComponent from "../../assets/components/navbar/NavbarComponent";
 import { useAuthorizedContext } from "../../AuthorizedContext";
@@ -10,10 +10,7 @@ import moment from "moment";
 const { Title, Text } = Typography;
 
 const CardTransactionComponent = (props) => {
-  const { mutate: deleteTransaction } = useDeleteTransaction(
-    props.transaction.id,
-    props.refetchTransactions
-  );
+  const { mutate: deleteTransaction } = useDeleteTransaction(props.transaction.id, props.refetchTransactions);
 
   const handleCancelTransaction = useCallback(() => {
     // console.log("id transaction >> ", props.transaction.id);
@@ -28,13 +25,7 @@ const CardTransactionComponent = (props) => {
             <Text>Waktu Request </Text>
           </Col>
           <Col offset={0} style={{ width: "65%" }}>
-            <Text>
-              {" "}
-              :{" "}
-              {moment(new Date(props.transaction.created_date)).format(
-                "DD MMMM YYYY, hh:mm A"
-              )}
-            </Text>
+            <Text> : {moment(new Date(props.transaction.created_date)).format("DD MMMM YYYY, hh:mm A")}</Text>
           </Col>
         </Row>
         <Row>
@@ -51,7 +42,7 @@ const CardTransactionComponent = (props) => {
             <Text>Nominal Transaksi</Text>
           </Col>
           <Col sstyle={{ width: "65%" }}>
-            <Text> : {props.transaction.nominal_transaksi} </Text>
+            <Text> : Rp{props.transaction.nominal_transaksi} </Text>
           </Col>
         </Row>
 
@@ -69,7 +60,18 @@ const CardTransactionComponent = (props) => {
             <Text>Status</Text>
           </Col>
           <Col style={{ width: "65%" }}>
-            <Text>: {props.transaction.status}</Text>
+            <Text>
+              :{" "}
+              {props.transaction.status === "0"
+                ? "Menunggu konfirmasi agen"
+                : props.transaction.status === "1"
+                ? "Agen dalam perjalanan"
+                : props.transaction.status === "2"
+                ? "Dibatalkan agen"
+                : props.transaction.status === "3"
+                ? "Selesai"
+                : "Error"}
+            </Text>
           </Col>
         </Row>
 
@@ -81,7 +83,7 @@ const CardTransactionComponent = (props) => {
               paddingRight: "15px",
               backgroundColor: "#F03D3E",
               fontWeight: "bold",
-              borderRadius: "10px"
+              borderRadius: "10px",
             }}
             onClick={handleCancelTransaction}
           >
@@ -109,14 +111,10 @@ function Home() {
           <Space direction="vertical">
             {isLoading ? (
               <Spin tip="Loading..."></Spin>
+            ) : data ? (
+              data.map((transaction) => <CardTransactionComponent key={transaction.id} transaction={transaction} refetchTransactions={refetchTransactions} />)
             ) : (
-              data ? data.map((transaction) => (
-                <CardTransactionComponent
-                  key={transaction.id}
-                  transaction={transaction}
-                  refetchTransactions={refetchTransactions}
-                />
-              )) : <Text>Gagal Memuat Data</Text>
+              <Text>Gagal Memuat Data</Text>
             )}
           </Space>
         </div>
