@@ -5,6 +5,11 @@
       "password": "$2a$10$X39dG/iIh75bLf/vw/kI6OgSi8UYcf6L3PGmpUddPE/tbjR01V/SK",
       "login_as": 1,
       "id": 1
+    },
+    {
+      "email": "grarizki",
+      "password": "123456",
+      "id": 2
     }
   ],
   "transactions": [

@@ -7,7 +7,7 @@ const useLogin = (loginData, onSuccess, onError) => {
  
   const { mutate, data, isLoading, isError } = useMutation(
     async () => {
-      const response = await fetch(`http://localhost:5000/login`, {
+      const response = await fetch(`http://localhost:5000/users`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
