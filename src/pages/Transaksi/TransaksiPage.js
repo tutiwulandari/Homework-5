@@ -129,7 +129,7 @@ const TransaksiPage = () => {
                           value={option.value}
                           disabled={option.isDisabled}
                         >
-                          {option.label}
+                          {option.value}
                         </Option>
                       ))}
                     </Select>
