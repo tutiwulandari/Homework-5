@@ -51,7 +51,7 @@ const TransaksiPage = () => {
       const needsDigitsAppended = digitsAfterDecimalCount > 2;
 
       if (needsDigitsAppended) {
-        reversedVal = reversedVal * Math.pow(10, digitsAfterDecimalCount - 2);
+         reversedVal = reversedVal * Math.pow(10, digitsAfterDecimalCount - 2);
       }
 
       return Number.isNaN(reversedVal) ? 0 : reversedVal;
