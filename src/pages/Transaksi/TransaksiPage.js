@@ -22,7 +22,7 @@ const TransaksiPage = () => {
     kecamatan_customer: " ",
     alamat_lengkap: " ",
     nominal_transaksi: "",
-    status: "Menunggu Konfirmasi Agen",
+    status: "0",
   });
 
   const { mutate } = useCreateTransaction(formState, (result) => {
@@ -40,7 +40,7 @@ const TransaksiPage = () => {
       // detecting and parsing between comma and dot
       var group = new Intl.NumberFormat("id-ID").format(1111).replace(/1/g, "");
       var reversedVal = val.replace(new RegExp("\\" + group, "g"), "");
-      //  => 1232.21 
+      //  => 1232.21
 
       // removing everything except the digits and dot
       reversedVal = reversedVal.replace(/[^0-9.]/g, "");
@@ -51,7 +51,7 @@ const TransaksiPage = () => {
       const needsDigitsAppended = digitsAfterDecimalCount > 2;
 
       if (needsDigitsAppended) {
-         reversedVal = reversedVal * Math.pow(10, digitsAfterDecimalCount - 2);
+        reversedVal = reversedVal * Math.pow(10, digitsAfterDecimalCount - 2);
       }
 
       return Number.isNaN(reversedVal) ? 0 : reversedVal;
@@ -83,17 +83,11 @@ const TransaksiPage = () => {
   };
 
   const dataKabupaten = React.useMemo(() => {
-    return (
-      DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)
-        ?.kabupaten || []
-    );
+    return DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)?.kabupaten || [];
   }, [selectedProvinsi]);
 
   const dataKecamatan = React.useMemo(() => {
-    return (
-      dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)
-        ?.kecamatan || []
-    );
+    return dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)?.kecamatan || [];
   }, [selectedKabupaten, dataKabupaten]);
 
   return (
@@ -124,11 +118,7 @@ const TransaksiPage = () => {
                       }}
                     >
                       {JenisTransaksi.map((option) => (
-                        <Option
-                          key={option.key}
-                          value={option.value}
-                          disabled={option.isDisabled}
-                        >
+                        <Option key={option.key} value={option.value} disabled={option.isDisabled}>
                           {option.label}
                         </Option>
                       ))}
