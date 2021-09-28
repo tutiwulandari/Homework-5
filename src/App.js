@@ -1,13 +1,9 @@
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-import logo from "./logo.svg";
 import "./App.css";
-import TransaksiPage from "./pages/Transaksi/TransaksiPage";
+import TransaksiPage from "./pages/transaksi/TransaksiPage";
 import Login from "./pages/login/Login";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -51,7 +47,7 @@ function App() {
           </Switch>
         </Router>
       </AuthorizedContextProvider>
-    </QueryClientProvider>
+     </QueryClientProvider>
   );
 }
 
