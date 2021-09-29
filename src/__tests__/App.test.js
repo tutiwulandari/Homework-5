@@ -14,17 +14,17 @@ describe('App Component', () => {
         expect(wrapper.find('div')).toHaveLength(0)
     });
 
-    it('should have one Router', function () {
-        const wrapper = shallow(<App/>)
-        expect(wrapper.find('Router')).toHaveLength(0)
-    });
+    // it('should have one Router', function () {
+    //     const wrapper = shallow(<App/>)
+    //     expect(wrapper.find('Router')).toHaveLength(1)
+    // });
 
     it('should not have render', function () {
         const wrapper = shallow(<App/>)
         expect(wrapper.find('Render')).toHaveLength(0)
     });
 
-    it('should have one router', function (){
+    it('should have two route', function (){
         const wrapper = shallow(<App/>)
         expect(wrapper.find('Route')).toHaveLength(2)
     });
