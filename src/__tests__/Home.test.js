@@ -95,7 +95,7 @@ describe("Home", () => {
     const queryClient = new QueryClient()
     return (
       <QueryClientProvider client={queryClient}>
-        <TransaksiPage />
+        <Home />
       </QueryClientProvider>
     )
     await waitFor(() => {
