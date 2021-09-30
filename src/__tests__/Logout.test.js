@@ -8,19 +8,8 @@ import Logout from "../pages/Status/Logout";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("Logout", () => {
-    test("renders loading", async () => {
-        const queryClient = new QueryClient();
-        return (
-            <QueryClientProvider client={queryClient}>
-                <Logout />
-            </QueryClientProvider>
-        );
-        await waitFor(() => {
-            expect(screen.getByText("Keluar")).toBeInTheDocument();
-        });
+    test("has a botton", () => {
+        const wrapper = shallow(<Logout />)
+        expect(wrapper.find("Button")).toHaveLength(1)
     });
-
-    
-
-
 });
