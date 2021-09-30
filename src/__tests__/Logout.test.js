@@ -8,8 +8,11 @@ import Logout from "../pages/Status/Logout";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("Logout", () => {
-    test("has a botton", () => {
+    test("has a button", () => {
         const wrapper = shallow(<Logout />)
-        expect(wrapper.find("Button")).toHaveLength(1)
+        expect(wrapper.find("Button")).toHaveLength(1);
+        expect(wrapper.find("Button").text()).toEqual('Keluar');
     });
+    
+
 });
