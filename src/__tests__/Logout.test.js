@@ -13,6 +13,16 @@ describe("Logout", () => {
         expect(wrapper.find("Button")).toHaveLength(1);
         expect(wrapper.find("Button").text()).toEqual('Keluar');
     });
+    test('renders modal when visible is true', () => {
+        const props = { visible: true }; 
+        const wrapper = shallow(
+          
+            <Logout {...props} />
+          
+        );
+        wrapper.update();
+        expect(wrapper.find('.my-modal-window').exists()).toEqual(true);
+    });
     
 
 });
