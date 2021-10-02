@@ -52,6 +52,7 @@ function Logout() {
           Keluar
         </Button>
         <Modal
+          className="my-modal-window"
           visible={visible}
           onOk={handleOk}
           confirmLoading={confirmLoading}
