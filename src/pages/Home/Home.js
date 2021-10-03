@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { Row, Col, Form, Input, Button, Card, Typography, Spin, Space } from "antd"
 import "./Home.css"
-import NavbarComponent from "../../assets/components/navbar/NavbarComponent"
+import NavbarComponent from "../../components/navbar/NavbarComponent"
 import { useAuthorizedContext } from "../../AuthorizedContext"
 import useGetTransaction from "../../Query/useGetTransaction"
 import useDeleteTransaction from "../../Mutations/useDeleteTransaction"
@@ -50,7 +50,7 @@ const CardTransactionComponent = (props) => {
           <Col style={{ width: "35%" }}>
             <Text>Nominal Transaksi</Text>
           </Col>
-          <Col style={{ width: "65%" }}>
+          <Col sstyle={{ width: "65%" }}>
             <Text> : Rp{props.transaction.nominal_transaksi} </Text>
           </Col>
         </Row>
