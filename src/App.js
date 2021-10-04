@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from "react-query"
+import React from "react"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+
 import "./App.css"
 import TransaksiPage from "./pages/Transaksi/TransaksiPage"
 import Login from "./pages/login/Login"
-import React from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Home from "./pages/Home/Home"
 import Logout from "./pages/Status/Logout"
 import AuthorizedRoute from "./AuthorizedRoute"
