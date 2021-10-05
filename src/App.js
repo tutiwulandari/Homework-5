@@ -36,8 +36,8 @@ function App() {
               exact
               component={TransaksiPage}
             ></AuthorizedRoute>
-            <Route path="/Signout" exact component={Logout} />
-            <AuthorizedRoute path="/Home" exact component={Home}></AuthorizedRoute>
+            <Route path="/signout" exact component={Logout} />
+            <AuthorizedRoute path="/home" exact component={Home}></AuthorizedRoute>
           </Switch>
         </Router>
       </AuthorizedContextProvider>
