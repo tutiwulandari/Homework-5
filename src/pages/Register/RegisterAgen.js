@@ -197,7 +197,7 @@ const RegisterAgen = () => {
                 justifyContent: "center",
               }}
             >
-              <Button className="btn-register">Register Agen</Button>
+              <Button className="btn-registerAgenCustomer">Register Agen</Button>
             </Col>
           </Form.Item>
         </Form>
