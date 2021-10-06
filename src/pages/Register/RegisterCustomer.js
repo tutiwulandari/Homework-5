@@ -1,10 +1,9 @@
-import React, { useState, useCallback } from "react"
-import { Row, Form, Input, Button, Select, Col, Typography } from "antd"
+import React from "react"
+import { Form, Input, Button, Col, Typography } from "antd"
 
 import "./Register.css"
 
-const { Option } = Select
-const { Title, Text } = Typography
+const { Title } = Typography
 
 const RegisterCustomer = () => {
   return (

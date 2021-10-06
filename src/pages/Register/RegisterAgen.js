@@ -1,16 +1,16 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useMemo } from "react"
 import { Row, Form, Input, Button, Select, Col, Typography } from "antd"
 
 import DataAlamat from "../Transaksi/DataAlamat"
 import "./Register.css"
 
 const { Option } = Select
-const { Title, Text } = Typography
+const { Title} = Typography
 
 const RegisterAgen = () => {
-  const [selectedProvinsi, setSelectedProvinsi] = React.useState(null)
-  const [selectedKabupaten, setSelectedKabupaten] = React.useState(null)
-  const [selectedKecamatan, setSelectedKecamatan] = React.useState(null)
+  const [selectedProvinsi, setSelectedProvinsi] = useState(null)
+  const [selectedKabupaten, setSelectedKabupaten] = useState(null)
+  const [selectedKecamatan, setSelectedKecamatan] = useState(null)
   const handleSelectedProvinsi = (value) => {
     setSelectedProvinsi(value)
   }
@@ -23,14 +23,14 @@ const RegisterAgen = () => {
     setSelectedKecamatan(value)
   }
 
-  const dataKabupaten = React.useMemo(() => {
+  const dataKabupaten = useMemo(() => {
     return (
       DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)
         ?.kabupaten || []
     )
   }, [selectedProvinsi])
 
-  const dataKecamatan = React.useMemo(() => {
+  const dataKecamatan = useMemo(() => {
     return (
       dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)
         ?.kecamatan || []
