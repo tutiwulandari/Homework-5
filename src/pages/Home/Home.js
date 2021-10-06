@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Row, Col, Form, Button, Card, Typography, Spin, Space } from "antd"
+import { Row, Col, Form, Button, Card, Typography, Spin, Space, Alert } from "antd"
 import moment from "moment"
 
 import "./Home.css"
@@ -123,11 +123,11 @@ function Home() {
           <Title>Transaksi Saat Ini:</Title>
         </div>
         <div className="resume">
-        <Space direction="vertical">
+          <Space direction="vertical">
             {isLoading ? (
               <Spin tip="Loading..."></Spin>
             ) : isError ? (
-              <Text style={{ color: "red" }}>Gagal Memuat Data</Text>
+              <Alert message="Gagal Memuat Data" type="error" />
             ) : (
               data.map((transaction) => (
                 <CardTransactionComponent
