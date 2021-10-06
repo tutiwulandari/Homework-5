@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Row, Col, Form, Input, Button, Card, Typography, Spin, Space } from "antd"
+import { Row, Col, Form, Button, Card, Typography, Spin, Space } from "antd"
 import moment from "moment"
 
 import "./Home.css"
@@ -19,7 +19,7 @@ const CardTransactionComponent = (props) => {
   const handleCancelTransaction = useCallback(() => {
     // console.log("id transaction >> ", props.transaction.id);
     deleteTransaction()
-  }, [props.transaction.id, deleteTransaction])
+  }, [deleteTransaction])
 
   return (
     <Card title=" ">
@@ -58,7 +58,7 @@ const CardTransactionComponent = (props) => {
 
         <Row>
           <Col style={{ width: "35%" }}>
-            <Text>Alamat Agen</Text>
+            <Text>Alamat Anda</Text>
           </Col>
           <Col style={{ width: "65%" }}>
             <Text> : {props.transaction.alamat_lengkap} </Text>
@@ -123,10 +123,12 @@ function Home() {
           <Title>Transaksi Saat Ini:</Title>
         </div>
         <div className="resume">
-          <Space direction="vertical">
+        <Space direction="vertical">
             {isLoading ? (
               <Spin tip="Loading..."></Spin>
-            ) : data ? (
+            ) : isError ? (
+              <Text style={{ color: "red" }}>Gagal Memuat Data</Text>
+            ) : (
               data.map((transaction) => (
                 <CardTransactionComponent
                   key={transaction.id}
@@ -134,8 +136,6 @@ function Home() {
                   refetchTransactions={refetchTransactions}
                 />
               ))
-            ) : (
-              <Text>Gagal Memuat Data</Text>
             )}
           </Space>
         </div>

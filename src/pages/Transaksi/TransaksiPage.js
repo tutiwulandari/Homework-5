@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useMemo} from "react"
 import {
   Row,
   Col,
@@ -8,26 +8,29 @@ import {
   InputNumber,
   Input,
   Spin,
+  Table,
   Typography,
+  Space,
 } from "antd"
 import { useHistory } from "react-router-dom"
 
+import DataAgent from "./DataAgent"
 import DataAlamat from "./DataAlamat"
 import JenisTransaksi from "./DataJenisTransaksi"
 import useCreateTransaction from "../../Mutations/useCreateTransaction"
 import NavbarComponent from "../../components/navbar/NavbarComponent"
 import "./TransaksiPage.css"
-import { AiOutlineBorder } from "react-icons/ai"
 
 const { Option } = Select
 const { Text } = Typography
 
 const TransaksiPage = () => {
-  const [selectedProvinsi, setSelectedProvinsi] = React.useState(null)
-  const [selectedKabupaten, setSelectedKabupaten] = React.useState(null)
-  const [selectedKecamatan, setSelectedKecamatan] = React.useState(null)
+  const [selectedProvinsi, setSelectedProvinsi] = useState(null)
+  const [selectedKabupaten, setSelectedKabupaten] = useState(null)
+  const [selectedKecamatan, setSelectedKecamatan] = useState(null)
+  const [showTableAgen, setShowTableAgen] = useState(false)
   const history = useHistory()
-  const [formState, setFormState] = React.useState({
+  const [formState, setFormState] = useState({
     created_date: new Date().toString(),
     jenis_transaksi: "",
     provinsi_customer: " ",
@@ -98,19 +101,54 @@ const TransaksiPage = () => {
     setFormState({ ...formState, kecamatan_customer: value })
   }
 
-  const dataKabupaten = React.useMemo(() => {
+  const dataKabupaten = useMemo(() => {
     return (
       DataAlamat?.find((provinsi) => provinsi.name === selectedProvinsi)
         ?.kabupaten || []
     )
   }, [selectedProvinsi])
 
-  const dataKecamatan = React.useMemo(() => {
+  const dataKecamatan = useMemo(() => {
     return (
       dataKabupaten?.find((kabupaten) => kabupaten.name === selectedKabupaten)
         ?.kecamatan || []
     )
   }, [selectedKabupaten, dataKabupaten])
+
+  const getTableAgen = () => setShowTableAgen(true)
+
+  const ColumnsAgen = [
+    {
+      title: "Nama Agen",
+      dataIndex: "agent_name",
+      key: "agent_name",
+    },
+    {
+      title: "Nomer Whatsapp",
+      dataIndex: "no_hp",
+      key: "no_hp",
+      render: (text) => (
+        <Button type="link" href={"https://wa.me/62" + text}>
+          {text}
+        </Button>
+      ),
+    },
+    {
+      title: "Alamat Agen",
+      dataIndex: "agent_address",
+      key: "agent_address",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (text) => (
+        <Button type="link" onClick={mutate}>
+          {text}
+        </Button>
+      ),
+    },
+  ]
 
   return (
     <div>
@@ -260,41 +298,38 @@ const TransaksiPage = () => {
             </Col>
           </Row>
           <Row justify="center">
+            <Button
+              type="primary"
+              className="searching-agent"
+              style={{ marginTop: "50px" }}
+              onClick={getTableAgen}
+            >
+              Cari Agen
+            </Button>
+          </Row>
+        </div>
+
+        <div style={{ margin: "50px 0" }}>
+          <Row justify="center">
             {isLoading ? (
               <Spin />
             ) : isError ? (
-              <div>
-                <Row>
-                  <Text style={{ color: "red" }}> Gagal Memuat data</Text>
-                </Row>
-                <Row justify="space-around" align="middle">
-                  <Button
-                    type="primary"
-                    className="searching-agent"
-                    style={{
-                      paddingRight: "15px",
-                      marginTop: "50px",
-                      backgroundColor: "#ff9800",
-                      color: "white",
-                    }}
-                    onClick={mutate}
-                  >
-                    Coba Lagi
-                  </Button>
-                </Row>
-              </div>
+              <Space align="center" direction="vertical" size="large">
+                <Text style={{ color: "red" }}> Gagal memilih Agen</Text>
+                <Table
+                  columns={ColumnsAgen}
+                  dataSource={DataAgent}
+                  pagination={false}
+                />
+              </Space>
             ) : (
-              <Button
-                type="primary"
-                className="searching-agent"
-                style={{
-                  paddingRight: "15px",
-                  marginTop: "50px",
-                }}
-                onClick={mutate}
-              >
-                Cari Agen
-              </Button>
+              showTableAgen && (
+                <Table
+                  columns={ColumnsAgen}
+                  dataSource={DataAgent}
+                  pagination={false}
+                />
+              )
             )}
           </Row>
         </div>
