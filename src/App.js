@@ -7,6 +7,8 @@ import TransaksiPage from "./pages/Transaksi/TransaksiPage"
 import Login from "./pages/login/Login"
 import Home from "./pages/Home/Home"
 import Logout from "./pages/Status/Logout"
+import RegisterAgen from "./pages/Register/RegisterAgen"
+import RegisterCustomer from './pages/Register/RegisterCustomer'
 import AuthorizedRoute from "./AuthorizedRoute"
 import RestrictedWrapper from "./RestrictedWrapper"
 import { AuthorizedContextProvider } from "./AuthorizedContext"
@@ -30,6 +32,12 @@ function App() {
               <RestrictedWrapper>
                 <Login />
               </RestrictedWrapper>
+            </Route>
+            <Route path="/RegisterAgen" exact>
+              <RegisterAgen />
+            </Route>
+            <Route path="/RegisterCustomer" exact>
+              <RegisterCustomer />
             </Route>
             <AuthorizedRoute
               path="/Transaksi"
