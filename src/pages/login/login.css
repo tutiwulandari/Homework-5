@@ -36,6 +36,7 @@ button.btn-login {
   color: #fff;
   border-radius: 10px;
   margin-left: 190px;
+  width: 70%;
 }
 
 button.btn-register {
@@ -43,4 +44,5 @@ button.btn-register {
   color: #000;
   border-radius: 10px;
   margin-left: 180px;
+  width: 70%;
 }

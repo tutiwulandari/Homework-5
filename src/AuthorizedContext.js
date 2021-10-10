@@ -12,6 +12,8 @@ const AuthorizedContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [userLevel, setUserLevel] = React.useState("");
 
+
+
   const setAuthorizedValue = React.useCallback(
     (loginStatus, userLevelStatus) => {
       setIsLoggedIn(loginStatus);
